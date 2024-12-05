@@ -9,6 +9,7 @@ This is the backend for a simple **Task Management App** built with Node.js, Exp
 - Add a new task
 - Remove an existing task
 - Update an existing task
+- Prioratise the task
 - Mark a task as completed or incomplete
 - Simple and easy-to-use REST API
 
