@@ -8,7 +8,7 @@ router.post('/tasks', taskController.addTask);
 // Get all tasks with optional query parameters (e.g., filter by priority or completion status)
 router.get('/tasks', taskController.getTasks);
 
-// Update a task 
+// Update a task by id
 router.put('/tasks/:id', taskController.updateTaskStatus);
 
 // Delete a task by ID

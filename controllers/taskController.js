@@ -12,7 +12,7 @@ exports.addTask = async (req, res) => {
   }
 };
 
-// Get all tasks
+
 // Get all tasks and sort by priority (High -> Medium -> Low) and completion status (Incomplete first)
 exports.getTasks = async (req, res) => {
   try {
