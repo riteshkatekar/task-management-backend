@@ -13,29 +13,37 @@ exports.addTask = async (req, res) => {
 };
 
 // Get all tasks
-// Get all tasks and sort by priority (High -> Medium -> Low)
+// Get all tasks and sort by priority (High -> Medium -> Low) and completion status (Incomplete first)
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find().sort({
-      priority: 1  // 1 means ascending order: Low, Medium, High
-    });
+    // Fetch all tasks from the database
+    const tasks = await Task.find();
 
-    // You can also use a custom priority order if you want "High" to come first
+    // Define custom sorting logic for priority and completion status
     const priorityOrder = {
-      Low: 1,
+      Low: 3,
       Medium: 2,
-      High: 3
+      High: 1
     };
 
+    // Sort tasks by completion status (Incomplete first) and then by priority
     const sortedTasks = tasks.sort((a, b) => {
+      // Sort by completion status: Incomplete (false) before Complete (true)
+      if (a.completed !== b.completed) {
+        return a.completed - b.completed; // false (0) comes before true (1)
+      }
+
+      // If completion status is the same, sort by priority (High -> Medium -> Low)
       return priorityOrder[a.priority] - priorityOrder[b.priority];
     });
 
+    // Send the sorted tasks as a response
     res.status(200).json(sortedTasks);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching tasks', error });
   }
 };
+
 
 
 // Update a task's status or details
